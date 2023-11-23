@@ -1,23 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
+import Login from './user/Login';
+import { Routes,Route } from 'react-router-dom';
+import Main from './user/Main';
+import Home from './user/Home';
+import View from './admin/View';
+import Mains from './admin/Mains';
+import Employee from './admin/Employee';
+import { RequireAuth } from './Auth';
+import { Logout } from './Logout';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+     
+      <Routes>
+      <Route path='/' element={<Login/>}></Route>
+      <Route path='/home' element={<RequireAuth><Main child={<Home/>}/></RequireAuth>}></Route>
+      <Route path='/logout' element={<Logout/>}></Route>
+      <Route path='/view' element={<RequireAuth><Mains child={<View/>}/></RequireAuth>}></Route>
+      <Route path='/add' element={<RequireAuth><Mains child={<Employee/>}/></RequireAuth>}></Route>
+      </Routes>
     </div>
   );
 }
